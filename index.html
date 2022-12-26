@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .desc {
+            text-align: center;
+        }
+
+        .outer,
+        .wrap,
+        .html2canvas,
+        .image_text {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .wrap {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 50px;
+
+        }
+
+        #imagewrap {
+            background-color: white;
+        }
+
+        #wow {
+            color: red;
+            display: block;
+            transform: translate(0px, -12px) rotate(-10deg);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+</head>
+
+<body>
+    <div class="outer">
+        <p>DOM-rendered</p>
+        <p>&nbsp;</p>
+        <div id="imagewrap" class="wrap">
+            <img src="image.png" id="img_prev" width="170" />
+            <h3 class="desc">John Doe</h3>
+        </div>
+    </div>
+    <div id="canvasWrapper" class="outer">
+        <p>Canvas-rendered (try right-click, save image as!)</p>
+        <p>Or, <a id="downloadLink" download="cat.png">Click Here to Download!</a>
+    </div>
+    <script>
+        window.onload = function () {
+            html2canvas(document.getElementById("imagewrap"), {
+                onrendered: function (canvas) {
+                    canvas.className = "html2canvas";
+                    document.getElementById("canvasWrapper").appendChild(canvas);
+                    var image = canvas.toDataURL("image/png");
+                    document.getElementById("downloadLink").href = image;
+                },
+                useCORS: true
+            });
+        }
+
+        function changePicture(image) {
+            var at = $(image).attr('at');
+            var newpath = '../images/' + at;
+            $("#img_prev").attr('src', newpath);
+        }
+
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#img_prev')
+                        .attr('src', e.target.result)
+                        .width(640)
+                        .height(640);
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+
+        $(document).on("click", '.font-names li a', function () {
+            $("#imagewrap h3").css("font-family", $(this).parent().css("font-family"));
+            $("#new_tile_font_style").val($(this).parent().css("font-family"));
+        });
+
+
+        $(document).on("click", '.font-sizes li a', function () {
+            $("#imagewrap h3").css("font-size", $(this).parent().css("font-size"));
+            $("#new_tile_font_size").val($(this).parent().css("font-size") + "px");
+        });
+
+
+        $(document).on("click", '.font-colors li a', function () {
+            $("#imagewrap h3").css("color", $(this).parent().css("color"));
+            $("#new_tile_font_color").val($(this).parent().css("color"));
+        });
+
+
+        $("#new_tile_quote").on('keyup', function () {
+            var enteredText = $("#new_tile_quote").val().replace(/\n/g, "<br>");
+            $("#imagewrap h3").html(enteredText);
+        });
+    </script>
+</body>
+
+</html>
