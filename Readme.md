@@ -1,3 +1,3 @@
 ## Text to image
-It generates an new image from an already existing image.
+It generates a new image from an already existing image template.
 The codes are messy don't mind please.
