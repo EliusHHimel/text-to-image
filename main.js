@@ -1,15 +1,22 @@
 window.onload = function () {
-    html2canvas(document.getElementById("imagewrap"), {
+    const element = document.getElementById("imagewrap")
+    html2canvas(element, {
+        windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+    }, {
         onrendered: function (canvas) {
             canvas.className = "html2canvas";
             var image = canvas.toDataURL("image/png");
             document.getElementById("downloadLink").href = image;
         },
-        useCORS: true
+        useCORS: true,
+        backgroundColor: null,
+        canvas: null,
+        width: '20px'
     });
 }
 
-fetch('https://github-readme-stats.vercel.app/api?username=EliusHHimel')
+fetch('https://api.github.com/users/EliusHHimel')
     .then(res => res.json())
     .then(data => console.log(data))
 
