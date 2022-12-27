@@ -1,0 +1,30 @@
+.desc {
+    text-align: center;
+}
+
+.outer,
+.wrap,
+.html2canvas,
+.image_text {
+    /* display: inline-block; */
+    vertical-align: top;
+}
+
+.wrap {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 50px;
+
+}
+
+#imagewrap {
+    background-color: white;
+}
+
+#wow {
+    color: red;
+    display: block;
+    transform: translate(0px, -12px) rotate(-10deg);
+}
